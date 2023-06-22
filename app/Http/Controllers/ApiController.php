@@ -28,8 +28,9 @@ class ApiController extends Controller
             $params[$key] = $param;
         }}
 
-        if(str_contains($path, 'http') || !config()->has($data['api'])) {
-            // straight to Guzzle client rather than configured lara_client
+        if(str_contains($path, 'http') || !array_key_exists($data['api'], config()['lara_client']['connections'])) {
+            // Straight to Guzzle client rather than configured lara_client
+            // for now, return message response.
             return response()->json(['message' => 'API option not configured'], 200);
         }
 
