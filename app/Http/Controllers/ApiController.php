@@ -21,9 +21,6 @@ class ApiController extends Controller
      */
     public function call(Request $request) {
         $data = $request->all();
-        $client = new LaraClient($data['api']);
-
-//        dd($client);
         $method = $data['method'];
         $path = $data['path'];
         $params = [];
@@ -31,6 +28,12 @@ class ApiController extends Controller
             $params[$key] = $param;
         }}
 
+        if(str_contains($path, 'http') || !config()->has($data['api'])) {
+            // straight to Guzzle client rather than configured lara_client
+            return response()->json(['message' => 'API option not configured'], 200);
+        }
+
+        $client = new LaraClient($data['api']);
         $response = $client->$method($path, $params);
 
         return response()->json($response->getData(), 200);
