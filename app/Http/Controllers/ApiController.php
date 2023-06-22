@@ -11,6 +11,14 @@ class ApiController extends Controller
 
     }
 
+    /*
+     * POST Body Parameters:
+     *      Key             Value
+     *      api             <api name as configured in lara_client.php>
+     *      method          get/post/etc
+     *      path            <path beyond configured base_uri>
+     *      params[key]     <value>
+     */
     public function call(Request $request) {
         $data = $request->all();
         $client = new LaraClient($data['api']);
