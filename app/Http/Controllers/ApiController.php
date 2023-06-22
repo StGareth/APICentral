@@ -33,6 +33,6 @@ class ApiController extends Controller
 
         $response = $client->$method($path, $params);
 
-        return response()->json($response, 200);
+        return response()->json($response->getData(), 200);
     }
 }
