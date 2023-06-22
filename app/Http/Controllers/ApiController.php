@@ -24,9 +24,11 @@ class ApiController extends Controller
         $method = $data['method'];
         $path = $data['path'];
         $params = [];
-        if(isset($data['params'])){foreach($data['params'] as $key => $param) {
-            $params[$key] = $param;
-        }}
+        if(isset($data['params'])){
+            foreach($data['params'] as $key => $param) {
+                $params[$key] = $param;
+            }
+        }
 
         if(str_contains($path, 'http') || !array_key_exists($data['api'], config()['lara_client']['connections'])) {
             // Straight to Guzzle client rather than configured lara_client
