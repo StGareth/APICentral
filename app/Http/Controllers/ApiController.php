@@ -27,9 +27,9 @@ class ApiController extends Controller
         $method = $data['method'];
         $path = $data['path'];
         $params = [];
-        foreach($data['params'] as $key => $param) {
+        if(isset($data['params'])){foreach($data['params'] as $key => $param) {
             $params[$key] = $param;
-        }
+        }}
 
         $response = $client->$method($path, $params);
 
